@@ -45,7 +45,12 @@ function App() {
 	}
 	return (
 		<div className="App">
-			Hello
+			<header className='App-header'>
+				<button onClick={fetchGreeting}>Fetch Greeting</button>
+				<button onClick={setGreeting}>Set Greeting</button>
+				<input onChange={((e) => { setGreetingValue(e.target.value) })} placeholder='Set greeting' />
+
+			</header>
 		</div>
 	);
 }
