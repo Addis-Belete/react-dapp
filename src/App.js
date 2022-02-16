@@ -8,6 +8,7 @@ const greeterAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3"
 function App() {
 
 	const [greeting, setGreetingValue] = useState()
+	const [value, setValue] = useState('')
 	// request access to users MetaMask account
 	async function requestAccount() {
 		await window.ethereum.request({ method: 'eth_requestAccounts' })
@@ -20,7 +21,8 @@ function App() {
 			const provider = new ethers.providers.Web3Provider(window.ethereum)
 			const contract = new ethers.Contract(greeterAddress, Greeter.abi, provider)
 			try {
-				const data = await contract.great()
+				const data = await contract.greet()
+				setValue(data)
 				console.log('data: ', data)
 			} catch (err) {
 				console.log("Error: ", err)
@@ -36,9 +38,10 @@ function App() {
 			await requestAccount();
 			const provider = new ethers.providers.Web3Provider(window.ethereum);
 			const signer = provider.getSigner()
-			const contract = new ethers.Contract(greeterAddress, Greeter.abi, singer);
+			const contract = new ethers.Contract(greeterAddress, Greeter.abi, signer);
 			const transaction = await contract.setGreeting(greeting)
 			await transaction.wait()
+			setGreetingValue('')
 			fetchGreeting()
 
 		}
@@ -46,9 +49,10 @@ function App() {
 	return (
 		<div className="App">
 			<header className='App-header'>
+				<h1>{value}</h1>
 				<button onClick={fetchGreeting}>Fetch Greeting</button>
 				<button onClick={setGreeting}>Set Greeting</button>
-				<input onChange={((e) => { setGreetingValue(e.target.value) })} placeholder='Set greeting' />
+				<input onChange={((e) => { setGreetingValue(e.target.value) })} placeholder='Set greeting' value={greeting} />
 
 			</header>
 		</div>
