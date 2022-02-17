@@ -27,7 +27,7 @@ module.exports = {
 		},
 		rinkeby: {
 			url: "https://rinkeby.infura.io/v3/798afd9ebb964711bad784c5081e32a2",
-			accounts: ['0xcc1ef5a937b9414f226c3dab28184b9a44cb42d672cb32c1db223c0ab57c04c8'] //Private key of the account
+			accounts: [`0x${React_App_Private_Key}`] //Private key of the account
 		}
 	}
 };
